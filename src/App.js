@@ -313,18 +313,27 @@ class App extends React.Component {
     const templateCountArray = records.map(function (el) { return el.template_count; });
     const elapsedArray = records.map(function (el) { return el.elapsed; });
 
+    const xLabel = 'Organization';
+    const xLabelValue = 'customdata.org_name';
+    const yLabel = 'Template count'
+    const yToolTipLabel = 'Template'
+    const yToolTipLabelValue = 'customdata.template_name';
+    const zLabel = 'Elapsed'
+    const zLabelValue = 'customdata.elapsed';
+
+
     this.state = {
         "data": [
             {
-              "customdata": records, //customization
-              "hovertemplate": "Organization: %{customdata.org_name}<br>Template: %{customdata.template_name}<br>Elapsed: %{customdata.elapsed}", //customization
+              "customdata": records, //customization: records from API
+              "hovertemplate": ` <br>  <b>${xLabel}</b>: %{${xLabelValue}}  <br>  <b>${yToolTipLabel}</b>: %{${yToolTipLabelValue}}  <br>  <b>${zLabel}</b>: %{${zLabelValue}}  <br> `, //customization: All labels and values defined above
               "marker": {
-                "color": elapsedArray, //customization
+                "color": elapsedArray, //customization: Derived from records
                 "coloraxis": "coloraxis",
               },
               "name": "",
-              x: orgArray, //customization
-              y: templateCountArray, //customization
+              x: orgArray, //customization: Derived from records
+              y: templateCountArray, //customization: Derived from records
               "type": "bar"
             }
         ],
@@ -386,7 +395,7 @@ class App extends React.Component {
             "xaxis": {
               "tickangle": -45,
               "title": {
-                "text": "Organization", //customization
+                "text": `${xLabel}`, //customization: All labels defined above
                 "font": {
                   "family": "RedHatText, Overpass, overpass, helvetica, arial, sans-serif",
                   "size": 15,
@@ -401,7 +410,7 @@ class App extends React.Component {
                 1.0
               ],
               "title": {
-                "text": "Template count", //customization
+                "text": `${yLabel}`, //customization: All labels defined above
                 "font": {
                   "family": "RedHatText, Overpass, overpass, helvetica, arial, sans-serif",
                   "size": 15,
@@ -413,7 +422,7 @@ class App extends React.Component {
             "coloraxis": {
               "colorbar": {
                 "title": {
-                  "text": "Elapsed",
+                  "text": `${zLabel}`,
                   "font": {
                     "color": "#4f5255",
                     "family": "RedHatText, Overpass, overpass, helvetica, arial, sans-serif",
